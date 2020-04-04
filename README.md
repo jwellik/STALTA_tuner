@@ -8,9 +8,9 @@ Download the [zip file](https://github.com/jwellik/STALTA_tuner/archive/master.z
 
 STALTA_tuner runs on Python 3.7. The program is interactive and will run in your default browser. It is powered by the Bokeh server service. All dependencies can be easily installed via [Anaconda](https://www.continuum.io/) on the command line. I *highly* recommend using a virtual environment in order to guarantee that STALTA_tuner runs properly. Follow the directions below to install STALTA_tuner with a pre-defined virtual environment.
 
-# First, change directories to /stalta_tuner
+First, change directories to /stalta_tuner
 
-# Then create the virtual environment
+Then create the virtual environment
 ```
 >> conda config --add channels condo-forge
 >> conda env create --file stalta37.yml
@@ -18,12 +18,12 @@ STALTA_tuner runs on Python 3.7. The program is interactive and will run in your
 
 ## Usage
 
-# First, activate the virtual environment
+First, activate the virtual environment
 ```
 >> condo activate stalta37
 ```
 
-# Now, run the shell script to execute the code
+Now, run the shell script to execute the code
 ```
 >>./run.sh MSH_lite
 ```
