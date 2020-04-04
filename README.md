@@ -3,6 +3,18 @@
 # STALTA_tuner
 Interactive configuration for STA/LTA algorithms. Applied to seismology.
 
+This program allows you to load seismic data and adjust common STA/LTA parameters to see how it will affect triggering on your data.
+
+Options that you can adjust interactively are:
+* STA/LTA algorithm
+* STA and LTA window length
+* trigger on/off thresholds
+
+If you use multiple stations, you can also use the configuration file to set the number of stations that must exceed the threshold to produce a trigger.
+
+Data can be loaded from IRIS or a Waveserver. Future capability to load SAC and SEED files is coming.
+
+
 ## Installation
 Download the [zip file](https://github.com/jwellik/STALTA_tuner/archive/master.zip) or use `git` to clone the entire repository to a working directory (e.g., mine is `/Users/jaywellik/PYTHON/stalta_tuner/`). All scripts will be run from this directory, and all new files will be generated here.
 
@@ -20,10 +32,10 @@ Then create the virtual environment
 
 First, activate the virtual environment
 ```
->> condo activate stalta37
+>> conda activate stalta37
 ```
 
-Now, run the shell script to execute the code
+Now, run the shell script to execute the code. Specify the configuration file without the extension. E.g.,
 ```
 >>./run.sh MSH_lite
 ```
