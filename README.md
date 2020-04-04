@@ -3,6 +3,8 @@
 # STALTA_tuner
 Interactive configuration for STA/LTA algorithms. Applied to seismology.
 
+STA/LTA settings can have a major affect on the results from automatic event detection across a network. This program allows you to interactively adjust different STA/LTA parameters to improve your network processing. There are no right answers for tuning your STA/LTA algorithm. Keep adjusting until you find something that represents your data well.
+
 This program allows you to load seismic data and adjust common STA/LTA parameters to see how it will affect triggering on your data.
 
 Options that you can adjust interactively are:
