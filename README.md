@@ -16,15 +16,15 @@ First, change directories to /stalta_tuner
 
 Then create the virtual environment
 ```
->> conda config --add channels conda-forge
->> conda env create --file stalta37.yml
+$ conda config --add channels conda-forge
+$ conda env create --file stalta37.yml
 ```
 
 ## Usage
 
 First, activate the virtual environment
 ```
->> conda activate stalta37
+$ conda activate stalta37
 ```
 
 Now, run the shell script to execute the code. Specify the configuration file without the extension. E.g.,
