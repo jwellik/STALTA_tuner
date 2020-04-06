@@ -1,5 +1,5 @@
 # STALTA_tuner
-Interactive configuration for STA/LTA algorithms. Applied to seismology.
+Interactive configuration for STA/LTA algorithms. Applied to seismology. Based on codes in [ObsPy](https://docs.obspy.org/tutorial/code_snippets/trigger_tutorial.html).
 
 STA/LTA settings can have a major affect on the results from automatic event detection across a network. This program allows you to interactively adjust different STA/LTA parameters to improve your network processing. There are no right answers for tuning your STA/LTA algorithm. Keep adjusting until you find something that represents your data well.
 
