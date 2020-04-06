@@ -16,7 +16,7 @@ First, change directories to /stalta_tuner
 
 Then create the virtual environment
 ```
->> conda config --add channels condo-forge
+>> conda config --add channels conda-forge
 >> conda env create --file stalta37.yml
 ```
 
