@@ -10,7 +10,7 @@ Check out the [Wiki](https://github.com/jwellik/STALTA_tuner/wiki) for more deta
 ## Installation
 Download the [zip file](https://github.com/jwellik/STALTA_tuner/archive/master.zip) or use `git` to clone the entire repository to your working directory (e.g., `/Users/jaywellik/PYTHON/stalta_tuner/`). All scripts will be run from this directory.
 
-STALTA_tuner runs on Python 3.7. The program is interactive and will run in your default browser. It is powered by the Bokeh server service. All dependencies can be easily installed via [Anaconda](https://www.continuum.io/) on the command line. I *highly* recommend using a virtual environment in order to guarantee that STALTA_tuner runs properly. Follow the directions below to install STALTA_tuner with a pre-defined virtual environment.
+STALTA_tuner runs on Python 3.7. The program is interactive and will run in your default browser. It is powered by the [Bokeh server](https://docs.bokeh.org/en/latest/docs/user_guide/server.html) service. All dependencies can be easily installed via [Anaconda](https://www.continuum.io/) on the command line. I *highly* recommend using a virtual environment in order to guarantee that STALTA_tuner runs properly. Follow the directions below to install STALTA_tuner with a pre-defined virtual environment.
 
 First, change directories to /stalta_tuner
 
