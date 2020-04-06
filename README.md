@@ -1,5 +1,3 @@
-<img src="https://raw.githubusercontent.com/jwellik/STALTA_tuner/master/lib/staltatuner.png" width=638 alt="REDPy Logo" />
-
 # STALTA_tuner
 Interactive configuration for STA/LTA algorithms. Applied to seismology.
 
@@ -7,15 +5,7 @@ STA/LTA settings can have a major affect on the results from automatic event det
 
 This program allows you to load seismic data and adjust common STA/LTA parameters to see how it will affect triggering on your data.
 
-Options that you can adjust interactively are:
-* STA/LTA algorithm
-* STA and LTA window length
-* trigger on/off thresholds
-
-If you use multiple stations, you can also use the configuration file to set the number of stations that must exceed the threshold to produce a trigger.
-
-Data can be loaded from IRIS or a Waveserver. Future capability to load SAC and SEED files is coming.
-
+Check out the [Wiki](https://github.com/jwellik/STALTA_tuner/wiki) for more details :-)
 
 ## Installation
 Download the [zip file](https://github.com/jwellik/STALTA_tuner/archive/master.zip) or use `git` to clone the entire repository to your working directory (e.g., `/Users/jaywellik/PYTHON/stalta_tuner/`). All scripts will be run from this directory.
@@ -48,6 +38,4 @@ The interactive tuner will open in your default browser. Change the STA/LTA algo
 
 Configuration files exist in ./configs. They are simple. Look at ./configs/MSH.py as an example. Set the server, stations (nslc), and the number of stations required to exceed the STA/LTA threshold to produce a trigger. Note, when you call the configuration file when running the program, do *not* include the extension, '.py'. See 'Usage'.
 
-## Wiki
-
-Check out the [Wiki](https://github.com/jwellik/STALTA_tuner/wiki) for more details!
+Check out the [Wiki](https://github.com/jwellik/STALTA_tuner/wiki) for more details.
