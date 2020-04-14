@@ -33,6 +33,8 @@ from obspy import UTCDateTime
 from obspy.signal.trigger import coincidence_trigger
 from obspy.core import Stream
 
+from matplotlib.dates import num2date
+
 import sys
 import importlib
 
@@ -149,13 +151,14 @@ for s in st:
 # Initialize data source for raw waveforms
 offset = len(st)*2-2 # offset is defined and incremented such that (e.g.) four channels will be plotted top to bottom at center values 6,4,2,0    
 times = []; traces = [];
-for s in st:
-    times.append(s.times('timestamp'))
+st_plot = st.copy()
+st_plot.filter('lowpass', freq=20.0)
+for s in st_plot:
+    times.append(num2date(s.times('matplotlib')))
     traces.append(s.data/max(s.data)+offset)
     offset -= 2
 waveclr = ['black']*len(st)
 source_waveforms = ColumnDataSource( {'times':times, 'traces':traces, 'color':waveclr} )
-
     
 ###########################################################
 
@@ -236,7 +239,7 @@ def update_waveform():
     offset = len(st)*2-2 # offset is defined and incremented such that (e.g.) four channels will be plotted top to bottom at center values 6,4,2,0    
     times = []; traces = []
     for s in st_plot:
-        times.append(s.times('timestamp'))
+        times.append(num2date(s.times('matplotlib')))
         traces.append(s.data/max(s.data)+offset)
         offset -= 2
     waveclr = ['black']*len(st)
@@ -266,7 +269,7 @@ def update_cft(prev_val, selected=None):
 
         i=0
         for p in cft_plots:
-            sourcelist_cft[i].data = dict(times=cft[i].times('timestamp'), cft=cft[i].data)
+            sourcelist_cft[i].data = dict(times=num2date(cft[i].times('matplotlib')), cft=cft[i].data)
             trig_on_thresh[i].location = trigger_slider.value[1]
             trig_off_thresh[i].location = trigger_slider.value[0]
             i+=1

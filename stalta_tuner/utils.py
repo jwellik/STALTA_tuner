@@ -326,7 +326,9 @@ def orgtrigsbychan(channels, triggers):
 '''Converts list of trigger dictionaries to array of trigger times'''
 def trigtimes(triggers):
     import numpy as np
+    from matplotlib.dates import num2date
     triggert = []
     for t in triggers:
-        triggert.append(t['time'].timestamp)
+        #print(type(t['time']))
+        triggert.append(num2date(t['time'].matplotlib_date))
     return np.array(triggert)
