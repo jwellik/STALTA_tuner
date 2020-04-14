@@ -6,7 +6,7 @@ Choose STA/LTA algorithms in the drop down menu, and compare how triggers are
 Specify the datasource, channels, and timeperiod in the configuration file.
 
 USAGE
-$ ./run.sh dev_agung_multi
+$ ./run.sh MSH_lite
 
 Help on running Bokeh server:
 Use the ``bokeh serve`` command to run the example and open in a browser by executing:
@@ -121,7 +121,7 @@ st = st.filter('bandpass', freqmin=FREQMIN, freqmax=FREQMAX)
 ### SET UP WIDGETS
 datasource_input   = TextInput(title="Datasource", value="127.0.0.1:16022")
 nslc_input         = TextInput(title="NSLCs (comma separated)", value="NN.SSSSS.LL.CCC, ...")
-load_data_button = Button(label="Load Data", sizing_mode='stretch_height')
+load_data_button   = Button(label="Load Data", sizing_mode='stretch_height')
 start_input        = TextInput(title="Start Time", value=settings['start'][0])
 forward_button     = Button(label=">", sizing_mode='stretch_height')
 back_button        = Button(label="<", sizing_mode='stretch_height')
