@@ -164,7 +164,7 @@ source_waveforms = ColumnDataSource( {'times':times, 'traces':traces, 'color':wa
 #vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv#
 ### WAVE PLOTS FROM DATASOURCE
 waveplot = figure(plot_width=TSPLOTW, plot_height=TSPLOTH, tools=TSTOOLS, x_axis_type='datetime',
-    title='Channels listed in same order as STALTA plots below (empty channels not shown)')
+    title='Channels listed in same order as STALTA plots below (empty channels not shown). Sampled to 20 Hz for speed.')
 waveplot.multi_line('times', 'traces', color='color', source=source_waveforms)
 waveplot.circle('ontimes', 'y', source=source_triggers, size=10, color='red')
 waveplot.add_tools(BoxZoomTool(dimensions="width"))
