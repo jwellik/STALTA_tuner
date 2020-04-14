@@ -1,5 +1,5 @@
 # STALTA_tuner
-Interactive configuration for STA/LTA algorithms. Applied to seismology.
+Interactive configuration for STA/LTA algorithms. Applied to seismology. Based on codes in [ObsPy](https://docs.obspy.org/tutorial/code_snippets/trigger_tutorial.html).
 
 STA/LTA settings can have a major affect on the results from automatic event detection across a network. This program allows you to interactively adjust different STA/LTA parameters to improve your network processing. There are no right answers for tuning your STA/LTA algorithm. Keep adjusting until you find something that represents your data well.
 
@@ -10,21 +10,21 @@ Check out the [Wiki](https://github.com/jwellik/STALTA_tuner/wiki) for more deta
 ## Installation
 Download the [zip file](https://github.com/jwellik/STALTA_tuner/archive/master.zip) or use `git` to clone the entire repository to your working directory (e.g., `/Users/jaywellik/PYTHON/stalta_tuner/`). All scripts will be run from this directory.
 
-STALTA_tuner runs on Python 3.7. The program is interactive and will run in your default browser. It is powered by the Bokeh server service. All dependencies can be easily installed via [Anaconda](https://www.continuum.io/) on the command line. I *highly* recommend using a virtual environment in order to guarantee that STALTA_tuner runs properly. Follow the directions below to install STALTA_tuner with a pre-defined virtual environment.
+STALTA_tuner runs on Python 3.7. The program is interactive and will run in your default browser. It is powered by the [Bokeh server](https://docs.bokeh.org/en/latest/docs/user_guide/server.html) service. All dependencies can be easily installed via [Anaconda](https://www.continuum.io/) on the command line. I *highly* recommend using a virtual environment in order to guarantee that STALTA_tuner runs properly. Follow the directions below to install STALTA_tuner with a pre-defined virtual environment.
 
 First, change directories to /stalta_tuner
 
 Then create the virtual environment
 ```
->> conda config --add channels condo-forge
->> conda env create --file stalta37.yml
+$ conda config --add channels conda-forge
+$ conda env create --file stalta37.yml
 ```
 
 ## Usage
 
 First, activate the virtual environment
 ```
->> conda activate stalta37
+$ conda activate stalta37
 ```
 
 Now, run the shell script to execute the code. Specify the configuration file without the extension. E.g.,
