@@ -26,8 +26,8 @@ from bokeh.models import ColumnDataSource, Span, BoxZoomTool
 from bokeh.models.widgets import PreText, Select, RangeSlider, TextInput, Button
 from bokeh.plotting import figure
 
-import utils
-import plotting
+from stalta_tuner import utils
+from stalta_tuner import plotting
 
 from obspy import UTCDateTime
 from obspy.signal.trigger import coincidence_trigger
@@ -119,14 +119,15 @@ st = st.filter('bandpass', freqmin=FREQMIN, freqmax=FREQMAX)
 
 ###########################################################
 ### SET UP WIDGETS
-#datasource_input = TextInput(title="Datasource", value="vdap.org:16024")
-#scnl_input       = TextInput(title="SCNLs (comma separated)", value="station.channel.network.location, ...")
-start_input      = TextInput(title="Start Time", value=settings['start'][0])
-forward_button   = Button(label=">")
-back_button      = Button(label="<")
-ticker_alg       = Select(value= list(STALTA_ALGORITHMS.keys())[0] , options = list(STALTA_ALGORITHMS.keys()) )
-stalta_slider    = RangeSlider(start=1, end=15, value=(3,8), step=1, title="STA/LTA (seconds)")
-trigger_slider   = RangeSlider(start=0, end=4, value=(0.8, 1.4), step=0.1, title="Trigger On/Off")
+datasource_input   = TextInput(title="Datasource", value="127.0.0.1:16022")
+nslc_input         = TextInput(title="NSLCs (comma separated)", value="NN.SSSSS.LL.CCC, ...")
+select_data_button = Button(label="Load Data", sizing_mode='stretch_height')
+start_input        = TextInput(title="Start Time", value=settings['start'][0])
+forward_button     = Button(label=">", sizing_mode='stretch_height')
+back_button        = Button(label="<", sizing_mode='stretch_height')
+ticker_alg         = Select(value= list(STALTA_ALGORITHMS.keys())[0] , options = list(STALTA_ALGORITHMS.keys()), sizing_mode='stretch_height')
+stalta_slider      = RangeSlider(start=1, end=15, value=(3,8), step=1, title="STA/LTA (seconds)")
+trigger_slider     = RangeSlider(start=0, end=4, value=(0.8, 1.4), step=0.1, title="Trigger On/Off")
 
 print(stalta_slider)
 print(stalta_slider.start)
@@ -244,7 +245,7 @@ def update_cft(prev_val, selected=None):
         print(st)
         print('')
         
-        from trigger import coincidence_trigger
+        from stalta_tuner.trigger import coincidence_trigger
         cft, triggers = coincidence_trigger(
                     STALTA_ALGORITHMS[ticker_alg.value]['name'], # Converts human-readable algorithm name to obspy algorithm type
                     trigger_slider.value[1], trigger_slider.value[0],   # threshold for on/off value of the cft
@@ -292,11 +293,11 @@ forward_button.on_click(forward_button_click)
 back_button.on_click(back_button_click)
 
 # set up layout
-#header0 = row(datasource_input, scnl_input, widgetbox(start_input, width=175), widgetbox(back_button, width=40), widgetbox(forward_button, width=40)  ) 
-header0 = row( widgetbox(back_button, width=40), widgetbox(start_input, width=175), widgetbox(forward_button, width=40) ) 
-header1 = row(ticker_alg, stalta_slider, trigger_slider)
+data_header = row(datasource_input, nslc_input, widgetbox(start_input, width=175), widgetbox(select_data_button, width=40)  ) 
+timing_header = row( widgetbox(back_button, width=40), widgetbox(start_input, width=175), widgetbox(forward_button, width=40) ) 
+stalta_header = row(ticker_alg, stalta_slider, trigger_slider)
 seisplots = column(waveplot, column(cft_plots))
-layout = column(header0, header1, seisplots)
+layout = column(data_header, timing_header, stalta_header, seisplots)
 
 # initialize
 update_cft('Classic STA/LTA')
