@@ -22,7 +22,7 @@ import numpy as np
 
 from bokeh.io import curdoc
 from bokeh.layouts import row, column, widgetbox
-from bokeh.models import ColumnDataSource, Span, BoxZoomTool
+from bokeh.models import ColumnDataSource, Span, BoxZoomTool, Div
 from bokeh.models.widgets import PreText, Select, RangeSlider, TextInput, Button
 from bokeh.plotting import figure
 
@@ -121,13 +121,14 @@ st = st.filter('bandpass', freqmin=FREQMIN, freqmax=FREQMAX)
 ### SET UP WIDGETS
 datasource_input   = TextInput(title="Datasource", value="127.0.0.1:16022")
 nslc_input         = TextInput(title="NSLCs (comma separated)", value="NN.SSSSS.LL.CCC, ...")
-select_data_button = Button(label="Load Data", sizing_mode='stretch_height')
+load_data_button = Button(label="Load Data", sizing_mode='stretch_height')
 start_input        = TextInput(title="Start Time", value=settings['start'][0])
 forward_button     = Button(label=">", sizing_mode='stretch_height')
 back_button        = Button(label="<", sizing_mode='stretch_height')
 ticker_alg         = Select(value= list(STALTA_ALGORITHMS.keys())[0] , options = list(STALTA_ALGORITHMS.keys()), sizing_mode='stretch_height')
 stalta_slider      = RangeSlider(start=1, end=15, value=(3,8), step=1, title="STA/LTA (seconds)")
 trigger_slider     = RangeSlider(start=0, end=4, value=(0.8, 1.4), step=0.1, title="Trigger On/Off")
+status_msg         = Div(text="""<font color='blue'>STA/LTA Tuner: Status Message.</font>""", width=200, height=25)
 
 print(stalta_slider)
 print(stalta_slider.start)
@@ -221,20 +222,27 @@ def stalta_slider_change(attrname, old, new):
     update_cft(old)
         
 def update_waveform():
+
+    # Load new data
     global st
     st = Stream()
 
     st = utils.get_stream(settings['datasource'], settings['scnl'], UTCDateTime(start_input.value), UTCDateTime(start_input.value)+30*60)
     st = st.filter('bandpass', freqmin=FREQMIN, freqmax=FREQMAX)
-    # Initialize data source for raw waveforms
+
+    # Initialize data source for filtered waveform plotting
+    st_plot = st.copy()
+    st_plot.filter('lowpass', freq=20.0)
     offset = len(st)*2-2 # offset is defined and incremented such that (e.g.) four channels will be plotted top to bottom at center values 6,4,2,0    
     times = []; traces = []
-    for s in st:
+    for s in st_plot:
         times.append(s.times('timestamp'))
         traces.append(s.data/max(s.data)+offset)
         offset -= 2
     waveclr = ['black']*len(st)
     source_waveforms.data = {'times':times, 'traces':traces, 'color':waveclr}
+    
+    # Update the CFT
     update_cft(ticker_alg.value)
 
 def update_cft(prev_val, selected=None):
@@ -249,7 +257,7 @@ def update_cft(prev_val, selected=None):
         cft, triggers = coincidence_trigger(
                     STALTA_ALGORITHMS[ticker_alg.value]['name'], # Converts human-readable algorithm name to obspy algorithm type
                     trigger_slider.value[1], trigger_slider.value[0],   # threshold for on/off value of the cft
-                    st, # stream object
+                    st, # stream object # stream for computing data
                     settings['ntriggersta'], # thr_coincidence_sum : number of stations required to have detection
                     sta=stalta_slider.value[0], lta=stalta_slider.value[1] # sta/lta windows
                                                    )
@@ -293,11 +301,11 @@ forward_button.on_click(forward_button_click)
 back_button.on_click(back_button_click)
 
 # set up layout
-data_header = row(datasource_input, nslc_input, widgetbox(start_input, width=175), widgetbox(select_data_button, width=40)  ) 
+data_header = row(datasource_input, nslc_input, widgetbox(load_data_button, width=40)  ) 
 timing_header = row( widgetbox(back_button, width=40), widgetbox(start_input, width=175), widgetbox(forward_button, width=40) ) 
 stalta_header = row(ticker_alg, stalta_slider, trigger_slider)
 seisplots = column(waveplot, column(cft_plots))
-layout = column(data_header, timing_header, stalta_header, seisplots)
+layout = column(data_header, timing_header, stalta_header, status_msg, seisplots)
 
 # initialize
 update_cft('Classic STA/LTA')
